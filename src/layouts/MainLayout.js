@@ -1,12 +1,27 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
 
 const MainLayout = ({ children }) => {
   const history = useHistory();
+  const auth = useContext(AuthContext);
 
   const onSignIn = () => {
     history.replace("/login");
+  };
+
+  const onRegister = () => {
+    history.replace("/register");
+  };
+
+  const onSignOut = () => {
+    auth.signOut();
+    history.push("/login");
+  };
+
+  const goToPlaces = () => {
+    history.push("/places");
   };
 
   return (
@@ -14,12 +29,19 @@ const MainLayout = ({ children }) => {
       <Navbar bg="light" variant="light" className="mb-4">
         <Navbar.Brand href="/">QR Menu</Navbar.Brand>
 
-        {/* <Nav>
+        <Nav>
           <Nav.Link onClick={goToPlaces}>Places</Nav.Link>
-        </Nav> */}
+        </Nav>
 
         <Nav className="flex-grow-1 justify-content-end">
-          <Nav.Link onClick={onSignIn}>Login</Nav.Link>
+          {auth.token ? (
+            <Nav.Link onClick={onSignOut}>Logout</Nav.Link>
+          ) : (
+            [
+              <Nav.Link onClick={onSignIn}>Login</Nav.Link>,
+              <Nav.Link onClick={onRegister}>Register</Nav.Link>,
+            ]
+          )}
         </Nav>
       </Navbar>
       <Container>{children}</Container>
