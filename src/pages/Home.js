@@ -22,7 +22,7 @@ const Home = () => (
           </Col>
           <Col md={6}>
             <Image
-              src="https://assets.materialup.com/uploads/ae60e834-349c-4c94-8189-2450f09ad37a/preview.gif"
+              src="https://cdn.dribbble.com/users/997070/screenshots/4692707/foodapp-login.gif"
               rounded
               fluid
             />
